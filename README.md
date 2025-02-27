@@ -1,5 +1,5 @@
 
-# IAtest - Ferramenta para geração de testes automatizados usando IA 🚀
+# Ferramenta para geração de testes automatizados usando IA 🚀
 
 **iatest** é uma ferramenta de terminal que gera testes automatizados para seu código JavaScript usando **OpenAI** ou **Groq**. Basta fornecer um arquivo JavaScript, e o iatest criará um arquivo de teste correspondente, pronto para ser usado com **Jest**.
 
@@ -50,23 +50,64 @@ Um arquivo de teste será gerado no mesmo diretório do arquivo original. Por ex
 ### Arquivo de Entrada (`crud.js`)
 
 ```javascript
-function criar() {
-  return { id: 1, nome: "Exemplo" };
+let dados = []; // Array para armazenar os dados em memória
+let proximoId = 1; // Contador para gerar IDs únicos
+
+// Função para criar um novo item
+function criar(nome) {
+  if (!nome) {
+    throw new Error('O nome é obrigatório.');
+  }
+  const novoItem = { id: proximoId++, nome };
+  dados.push(novoItem);
+  return novoItem;
 }
 
+// Função para ler um item pelo ID
 function ler(id) {
-  return { id, nome: "Exemplo" };
+  const item = dados.find(item => item.id === id);
+  if (!item) {
+    throw new Error('Item não encontrado.');
+  }
+  return item;
 }
 
+// Função para atualizar um item pelo ID
 function atualizar(id, novosDados) {
-  return { id, ...novosDados };
+  const item = dados.find(item => item.id === id);
+  if (!item) {
+    throw new Error('Item não encontrado.');
+  }
+
+  if (novosDados.nome) {
+    item.nome = novosDados.nome;
+  }
+
+  return item;
 }
 
+// Função para deletar um item pelo ID
 function deletar(id) {
-  return { id, status: "deletado" };
+  const index = dados.findIndex(item => item.id === id);
+  if (index === -1) {
+    throw new Error('Item não encontrado.');
+  }
+
+  const [itemRemovido] = dados.splice(index, 1);
+  return { ...itemRemovido, status: 'deletado' };
 }
 
-module.exports = { criar, ler, atualizar, deletar };
+// Função para listar todos os itens
+function listar() {
+  return dados;
+}
+
+// Função para buscar itens por nome
+function buscarPorNome(nome) {
+  return dados.filter(item => item.nome.toLowerCase().includes(nome.toLowerCase()));
+}
+
+module.exports = { criar, ler, atualizar, deletar, listar, buscarPorNome };
 ```
 
 ### Comando no Terminal
