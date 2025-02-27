@@ -1,0 +1,36 @@
+{
+  "name": "iatest",
+  "version": "1.0.3",
+  "description": "Ferramenta de terminal para gerar testes automatizados usando OpenAI.",
+  "main": "index.js",
+  "bin": {
+    "iatest": "bin/index.js"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "automacao",
+    "testes",
+    "openai",
+    "groqai",
+    "jest",
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Bruno Oliveira | bruno.contatododev@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "groq-sdk": "^0.15.0",
+    "openai": "^4.85.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odevbruno/iatest.git"
+  },
+  "homepage": "https://github.com/odevbruno/iatest.git#readme",
+  "bugs": {
+    "url": "https://github.com/odevbruno/iatest.git/issues"
+  }
+}
